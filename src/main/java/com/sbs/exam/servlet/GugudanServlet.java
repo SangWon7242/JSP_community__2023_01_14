@@ -1,3 +1,6 @@
+package com.sbs.exam.servlet;
+
+import com.sbs.exam.Rq;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,7 +18,7 @@ public class GugudanServlet extends HttpServlet {
     int dan = rq.getIntParam("dan", 0);
     int limit = rq.getIntParam("limit", 0);
 
-    rq.appendBody("<div class=\"a\"></div>\n".formatted(dan));
+    rq.appendBody("<div class=\"a\">%d단</div>\n".formatted(dan));
     for (int i = 1; i <= limit; i++ ) {
       resp.getWriter().append("<div>%d * %d = %d</div>".formatted(dan, i, dan * i));
     }
