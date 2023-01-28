@@ -34,12 +34,11 @@ public class ArticleDetailServlet extends HttpServlet {
 
     try {
       conn = DriverManager.getConnection(url, user, password);
-      DBUtil dbUtil = new DBUtil(req, resp);
 
       int id = Integer.parseInt(req.getParameter("id"));
 
       String sql = String.format("SELECT * FROM article WHERE id = %d", id);
-      Map<String, Object> articleRow = dbUtil.selectRow(conn, sql);
+      Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
 
       req.setAttribute("articleRow", articleRow);
       req.getRequestDispatcher("../article/detail.jsp").forward(req, resp);
