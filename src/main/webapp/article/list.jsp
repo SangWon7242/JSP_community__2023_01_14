@@ -16,16 +16,36 @@
 <body>
   <h1>게시물 리스트</h1>
 
-  <ul>
+  <table border="1" style="text-align:center;">
+    <colgroup>
+      <col width="100">
+      <col>
+      <col width="100">
+    </colgroup>
+    <thead>
+    <tr>
+      <th>번호</th>
+      <th>현재 날짜</th>
+      <th>제목</th>
+    </tr>
+    </thead>
+    <tbody>
     <%
     for (Map<String, Object> articleRow : articleRows) {
     %>
-    <li>
-      <a href="detail?id=<%=(int) articleRow.get("id")%>"><%= (int) articleRow.get("id")%>번, <%= (String) articleRow.get("regDate")%>, <%= (String) articleRow.get("updateDate")%>, <%= (String) articleRow.get("title")%></a>
-    </li>
+      <tr>
+        <td><%= articleRow.get("id")%></td>
+        <td><%= articleRow.get("regDate")%></td>
+        <td>
+          <a href="detail?id=<%=(int) articleRow.get("id")%>">
+            <%= articleRow.get("title")%>
+          </a>
+        </td>
+      </tr>
     <%
     }
     %>
-  </ul>
+    </tbody>
+  </table>
 </body>
 </html>
