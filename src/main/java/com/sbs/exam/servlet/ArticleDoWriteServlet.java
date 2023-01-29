@@ -12,10 +12,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Map;
 
-@WebServlet("/article/doDelete")
-public class ArticleDeleteServlet extends HttpServlet {
+@WebServlet("/article/doWrite")
+public class ArticleDoWriteServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -40,14 +39,18 @@ public class ArticleDeleteServlet extends HttpServlet {
     try {
       conn = DriverManager.getConnection(url, user, password);
 
-      int id = Integer.parseInt(req.getParameter("id"));
+      String title = req.getParameter("title");
+      String body = req.getParameter("body");
 
-      SecSql sql = SecSql.from("DELETE");
-      sql.append("FROM article");
-      sql.append("WHERE id = ?", id);
+      SecSql sql = SecSql.from("INSERT INTO article");
+      sql.append("SET regDate = NOW()");
+      sql.append(", updateDate = NOW()");
+      sql.append(", title = ?" , title);
+      sql.append(", body = ?" , body);
 
-      DBUtil.delete(conn, sql);
-      resp.getWriter().append("<script> alert('1번 글이 삭제되었습니다.'); location.replace('list'); </script>");
+      int id = DBUtil.insert(conn, sql);
+
+      resp.getWriter().append(String.format("<script> alert('%d번 글이 생성되었습니다.'); location.replace('list'); </script>", id));
 
     } catch (SQLException e) {
      e.printStackTrace();
