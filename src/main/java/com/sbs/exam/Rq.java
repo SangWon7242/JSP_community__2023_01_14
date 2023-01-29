@@ -38,6 +38,21 @@ public class Rq {
     }
   }
 
+  public String getParam(String paramName, String defaultValue) {
+    String value = req.getParameter(paramName);
+
+    if( value == null ) {
+      return defaultValue;
+    }
+
+    try {
+      return value;
+    }
+    catch (NumberFormatException e) {
+      return defaultValue;
+    }
+  }
+
   public void appendBody(String str) {
     try {
       resp.getWriter().append(str);

@@ -1,5 +1,6 @@
 package com.sbs.exam.servlet;
 
+import com.sbs.exam.Rq;
 import com.sbs.exam.util.DBUtil;
 import com.sbs.exam.util.SecSql;
 import jakarta.servlet.ServletException;
@@ -18,9 +19,7 @@ public class ArticleDoDeleteServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    req.setCharacterEncoding("UTF-8"); // 들어오는 데이터를 UTF-8로 해석하겠다.
-    resp.setCharacterEncoding("UTF-8"); // 완성되는 HTML의 인코딩을 UTF-8로 하겠다.
-    resp.setContentType("text/html; charset-utf-8"); // 브라우저에게 우리가 만든 결과물이 UTF-8 이다 라고 알리는 의미
+    Rq rq = new Rq(req, resp);
 
     // DB 연결시작
     Connection conn = null;
@@ -39,14 +38,14 @@ public class ArticleDoDeleteServlet extends HttpServlet {
     try {
       conn = DriverManager.getConnection(url, user, password);
 
-      int id = Integer.parseInt(req.getParameter("id"));
+      int id = rq.getIntParam("id", 0);
 
       SecSql sql = SecSql.from("DELETE");
       sql.append("FROM article");
       sql.append("WHERE id = ?", id);
 
       DBUtil.delete(conn, sql);
-      resp.getWriter().append(String.format("<script> alert('%d번 글이 삭제되었습니다.'); location.replace('list'); </script>", id));
+      rq.appendBody(String.format("<script> alert('%d번 글이 삭제되었습니다.'); location.replace('list'); </script>", id));
 
     } catch (SQLException e) {
      e.printStackTrace();
