@@ -32,3 +32,19 @@ SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목3',
 `body` = '내용3';
+
+SELECT * FROM article;
+
+INSERT INTO article(regDate, updateDate, title, `body`)
+SELECT NOW(), NOW(), CONCAT('제목__'+ RAND()), CONCAT('내용__'+ RAND())
+FROM article;
+
+# 멤버 테이블 생성
+CREATE TABLE `member` (
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	loginId CHAR(100) NOT NULL UNIQUE,
+	loginPw CHAR(100) NOT NULL,
+	`name` CHAR(100) NOT NULL
+);
