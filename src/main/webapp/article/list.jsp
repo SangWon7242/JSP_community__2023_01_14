@@ -18,6 +18,8 @@
 <body>
   <h1>게시물 리스트</h1>
 
+  <%@ include file="../part/topBar.jspf"%>
+
   <div>
     <a href="write">게시물 작성</a>
   </div>
