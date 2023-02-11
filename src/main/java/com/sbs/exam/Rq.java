@@ -25,6 +25,14 @@ public class Rq {
     resp.setContentType("text/html; charset-utf-8");
   }
 
+  public HttpServletRequest getReq() {
+    return req;
+  }
+
+  public HttpServletResponse getResp() {
+    return resp;
+  }
+
   public int getIntParam(String paramName, int defaultValue) {
     String value = req.getParameter(paramName);
 
@@ -59,7 +67,7 @@ public class Rq {
   }
 
   public void jsp(String jspPath) {
-    RequestDispatcher requestDispatcher = req.getRequestDispatcher(jspPath + ".jsp");
+    RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/" + jspPath + ".jsp");
 
     try {
       requestDispatcher.forward(req, resp);
