@@ -1,10 +1,11 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="com.sbs.exam.dto.Article"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
-  List<Map<String, Object>> articleRows = (List<Map<String, Object>>) request.getAttribute("articleRows");
+  List<Article> articles = (List<Article>) request.getAttribute("articles");
   int cPage = (int) request.getAttribute("page");
   int totalPage = (int) request.getAttribute("totalPage");
 %>
@@ -39,14 +40,14 @@
     </thead>
     <tbody>
     <%
-    for (Map<String, Object> articleRow : articleRows) {
+    for (Article article : articles) {
     %>
       <tr>
-        <td><%= articleRow.get("id")%></td>
-        <td><%= articleRow.get("regDate")%></td>
+        <td><%= article.id%></td>
+        <td><%= article.regDate%></td>
         <td>
-          <a href="detail?id=<%=(int) articleRow.get("id")%>">
-            <%= articleRow.get("title")%>
+          <a href="detail?id=<%= article.id%>">
+            <%= article.title%>
           </a>
         </td>
       </tr>
@@ -91,8 +92,6 @@
     <% } %>
 
   </div>
-
-
 
 </body>
 </html>

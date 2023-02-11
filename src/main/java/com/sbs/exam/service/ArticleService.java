@@ -2,10 +2,12 @@ package com.sbs.exam.service;
 
 import com.sbs.exam.Rq;
 import com.sbs.exam.dao.ArticleDao;
+import com.sbs.exam.dto.Article;
 import com.sbs.exam.util.DBUtil;
 import com.sbs.exam.util.SecSql;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +32,7 @@ public class ArticleService {
     return totalPage;
   }
 
-  public List<Map<String, Object>> getForPrintArticleRows(int page) {
+  public List<Article> getForPrintArticles(int page) {
 
     int itemInAPage = getItemsInAPage();
     int limitFrom = (page - 1) * itemInAPage;
@@ -41,6 +43,12 @@ public class ArticleService {
 
     List<Map<String, Object>> articleRows = articleDao.getArticleRows(itemInAPage, limitFrom);
 
-    return articleRows;
+    List<Article> articles = new ArrayList<>();
+
+    for( Map<String, Object> articleRow : articleRows) {
+      articles.add(new Article(articleRow));
+    }
+
+    return articles;
   }
 }
