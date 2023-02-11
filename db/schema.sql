@@ -48,3 +48,28 @@ CREATE TABLE `member` (
 	loginPw CHAR(100) NOT NULL,
 	`name` CHAR(100) NOT NULL
 );
+
+# 회원 테이블 데이터 생성
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = 'admin',
+`loginPw` = 'admin',
+`name` = '관리자';
+
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = 'user1',
+`loginPw` = 'user1',
+`name` = '유저1';
+
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = 'user2',
+`loginPw` = 'user2',
+`name` = '유저2';
+
+# 게시물 테이블에 memberId 칼럼 추가
+ALTER TABLE `article` ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER regDate;
