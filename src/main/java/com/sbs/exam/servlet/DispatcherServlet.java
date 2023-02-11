@@ -26,14 +26,6 @@ public class DispatcherServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     Rq rq = new Rq(req, resp);
 
-    String requestUri = req.getRequestURI();
-    String[] requestUriBits = requestUri.split("/");
-
-    if (requestUriBits.length < 4) {
-      rq.appendBody("올바른 요청이 아닙니다.");
-      return;
-    }
-
     // DB 연결시작
     Connection conn = null;
     String diverName = Config.getDriverClassName();
@@ -68,16 +60,16 @@ public class DispatcherServlet extends HttpServlet {
       req.setAttribute("loginedMemberId", loginedMemberId);
       req.setAttribute("loginedMemberRow", loginedMemberRow);
 
-      String controllerName = requestUriBits[2];
-      String actionMethodName = requestUriBits[3];
-
-      if (controllerName.equals("article")) {
-        ArticleController controller = new ArticleController(rq, conn);
-
-        if( actionMethodName.equals("list")) {
-          controller.actionList(rq);
-        }
+      switch (rq.getControllerTypeName()) {
+        case "usr":
+          ArticleController articleController = new ArticleController(rq, conn);
+          switch (rq.getControllerName()) {
+            case "article":
+              articleController.performAction(rq);
+              break;
+          }
       }
+
 
     } catch (SQLException e) {
       e.printStackTrace();

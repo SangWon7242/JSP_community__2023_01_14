@@ -7,11 +7,20 @@ import com.sbs.exam.service.ArticleService;
 import java.sql.Connection;
 import java.util.List;
 
-public class ArticleController {
+public class ArticleController extends Controller {
   private ArticleService articleService;
 
   public ArticleController(Rq rq, Connection conn) {
     articleService = new ArticleService(rq, conn);
+  }
+
+  @Override
+  public void performAction(Rq rq) {
+    switch (rq.getActionMethodName()) {
+      case "list":
+        actionList(rq);
+        break;
+    }
   }
 
   public void actionList(Rq rq) {
