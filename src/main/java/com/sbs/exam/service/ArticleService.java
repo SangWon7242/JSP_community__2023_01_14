@@ -3,6 +3,7 @@ package com.sbs.exam.service;
 import com.sbs.exam.Rq;
 import com.sbs.exam.dao.ArticleDao;
 import com.sbs.exam.dto.Article;
+import com.sbs.exam.dto.ResultData;
 import com.sbs.exam.util.DBUtil;
 import com.sbs.exam.util.SecSql;
 
@@ -50,5 +51,8 @@ public class ArticleService {
     }
 
     return articles;
+  }
+
+  public ResultData write(String title, String body, int loginedMemberId) {
   }
 }

@@ -49,7 +49,7 @@ public class MemberDoJoinServlet extends HttpServlet {
       boolean isJoinAvailableLogindId = DBUtil.selectRowIntValue(conn, sql) == 0;
 
       if(isJoinAvailableLogindId == false) {
-        rq.appendBody(String.format("<script> alert('%s(은) 이미 사용중인 로그인 아이디입니다.'); history.back(); </script>", loginId));
+        rq.print(String.format("<script> alert('%s(은) 이미 사용중인 로그인 아이디입니다.'); history.back(); </script>", loginId));
         return;
       }
 
@@ -61,7 +61,7 @@ public class MemberDoJoinServlet extends HttpServlet {
       sql.append(", name = ?" , name);
 
       int id = DBUtil.insert(conn, sql);
-      rq.appendBody(String.format("<script> alert('%d번 회원이 생성되었습니다.'); location.replace('../home/main'); </script>", id));
+      rq.print(String.format("<script> alert('%d번 회원이 생성되었습니다.'); location.replace('../home/main'); </script>", id));
 
     } catch (SQLException e) {
      e.printStackTrace();

@@ -15,6 +15,8 @@ public class ArticleWriteServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       Rq rq = new Rq(req, resp);
       rq.jsp("../article/write");
+
+
   }
 
   @Override

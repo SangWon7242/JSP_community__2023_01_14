@@ -45,7 +45,7 @@ public class MemberDoLogoutServlet extends HttpServlet {
       HttpSession session = req.getSession();
       session.removeAttribute("loginedMemberId");
 
-      rq.appendBody(String.format("<script> alert('로그아웃 되었습니다.'); location.replace('../home/main') </script>"));
+      rq.print(String.format("<script> alert('로그아웃 되었습니다.'); location.replace('../home/main') </script>"));
 
     } catch (SQLException e) {
      e.printStackTrace();
