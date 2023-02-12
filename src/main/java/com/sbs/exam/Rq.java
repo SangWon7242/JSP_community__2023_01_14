@@ -1,18 +1,23 @@
 package com.sbs.exam;
 
-import com.sbs.exam.dto.Article;
 import com.sbs.exam.util.Util;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+@ToString
+@Data
 public class Rq {
   private HttpServletRequest req;
   private HttpServletResponse resp;
+
   private boolean isInvailid = false;
   private String controllerTypeName;
   private String controllerName;
@@ -44,26 +49,6 @@ public class Rq {
     this.controllerTypeName = requestUriBits[1];
     this.controllerName = requestUriBits[2];
     this.actionMethodName = requestUriBits[3];
-  }
-
-  public HttpServletRequest getReq() {
-    return req;
-  }
-
-  public HttpServletResponse getResp() {
-    return resp;
-  }
-
-  public String getControllerTypeName() {
-    return controllerTypeName;
-  }
-
-  public String getControllerName() {
-    return controllerName;
-  }
-
-  public String getActionMethodName() {
-    return actionMethodName;
   }
 
   public int getIntParam(String paramName, int defaultValue) {
