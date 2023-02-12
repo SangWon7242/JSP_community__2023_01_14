@@ -33,6 +33,7 @@ public class ArticleController extends Controller {
 
   private void actionDoWrite(Rq rq) {
     HttpSession session = rq.getReq().getSession();
+    String redirectUri = rq.getParam("redirectUri", "../article/list");
 
     if(session.getAttribute("loginedMemberId") == null) {
       rq.print(String.format("<script> alert('로그인 후 이용해주세요.'); location.replace('../member/login'); </script>"));
@@ -54,6 +55,7 @@ public class ArticleController extends Controller {
 
     ResultData writeRd = articleService.write(title, body, loginedMemberId);
 
+    rq.printf(writeRd.getMsg());
   }
 
   private void actionShowWrite(Rq rq) {
