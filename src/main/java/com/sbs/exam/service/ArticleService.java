@@ -58,4 +58,8 @@ public class ArticleService {
 
     return ResultData.from("S-1", Util.f("%d번 게시물이 생성되었습니다.", id), "id", id);
   }
+
+  public Article getForPrintArticleById(int id) {
+    return articleDao.getForPrintArticleById(id);
+  }
 }
