@@ -87,7 +87,7 @@ public class ArticleController extends Controller {
 
   public void actionList(Rq rq) {
 
-    int page = 1;
+    int page = rq.getIntParam("page", 1);
     int totalPage = articleService.getForPrintListTotalPage();
     List<Article> articles = articleService.getForPrintArticles(page);
 
