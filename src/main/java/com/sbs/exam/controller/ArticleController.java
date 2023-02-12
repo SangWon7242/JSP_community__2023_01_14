@@ -27,6 +27,9 @@ public class ArticleController extends Controller {
         break;
       case "doWrite":
         actionDoWrite(rq);
+       break;
+      default:
+        rq.println("존재하지 않는 페이지입니다.");
         break;
     }
   }
@@ -55,7 +58,11 @@ public class ArticleController extends Controller {
 
     ResultData writeRd = articleService.write(title, body, loginedMemberId);
 
-    rq.printf(writeRd.getMsg());
+    int id = (int) writeRd.getBody().get("id");
+    redirectUri = redirectUri.replace("[NEW_ID]", id + "");
+
+    // rq.printf(writeRd.getMsg());
+    rq.replace(writeRd.getMsg(), redirectUri);
   }
 
   private void actionShowWrite(Rq rq) {
